@@ -1,193 +1,198 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./index.css">
-    <style>
-/* google fonts import link and use the font family use font use */
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
-
+  <meta charset="UTF-8">
+  <title>CodePen - Digital Clock Dark/Light</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'><link rel="stylesheet" href="./style.css">
+<style>
+/* Google fonts import link */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
 *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Roboto Slab', serif;
-    
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Orbitron', sans-serif;
+  transition: all 0.4s ease;
 }
-
-body{
-    background-image: linear-gradient(to right,#0f2027,#203a43,#2c5364);
+section{
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F0F8FF;
+  padding: 0 20px;
 }
-
-#form{
-    width: 300px;
-    margin: 20vh auto 0vh auto;
-    background-color: whitesmoke;
-    padding: 20px;
-    border-radius: 4px;
- 
+section.dark{
+  background: #24292D;
 }
-
-#form input{
-    background-color: rgba(246, 228, 206, 0.437);
+section .container{
+  display: flex;
+  align-items center;
+  justify-content: center;
+  height: 220px;
+  max-width: 560px;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  position: relative;
 }
-
-#form h1{
-    margin: 10px;
-    text-align: center;
+section.dark .container{
+  background: #323840;
 }
-
-.input-control{
-    display: flex;
-    flex-direction: column;
+section .container .icons i{
+  position: absolute;
+  right: 17px;
+  top: 17px;
+  height: 30px;
+  width: 30px;
+  background: #24292D;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 50%;
+  font-size: 14px;
+  cursor: pointer;
 }
-
-.input-control input{
-    width: 100%;
-    border: 1px solid white;
-    padding: 10px;
-    border-radius: 4px;
+section.dark .container .icons i{
+  background: #fff;
+  color: #323840;
 }
-
-.input-control input:focus{
-    outline: none;
+.container .icons i.fa-sun{
+  opacity: 0;
+  pointer-events: none;
 }
-
-#form button{
-    width: 100%;
-    border: none;
-    background-color: rgb(10, 104, 71);
-    color: white;
-    padding: 10px;
-    border-radius: 4px;
-    margin-top: 10px;
+section.dark .container .icons i.fa-sun{
+  opacity: 1;
+  pointer-events: auto;
+  font-size: 16px;
 }
-
-
-/* if error get color to background */
-.input-control.error input{
-    border-color: rgb(200, 53, 53);
+section .container .time{
+  display: flex;
+  align-items: center;
 }
-
-.input-control.success input{
-    border-color: rgb(10, 104, 71);
+.container .time .time-colon{
+  display: flex;
+  align-items: center;
+  position: relative;
 }
-
-
-.input-control .error {
-    border-color: rgb(200, 53, 53);
-    font-size: 10px;
-    height: 20px;
-    color: rgb(200, 53, 53);
+.time .time-colon .am_pm{
+  position: absolute;
+  top: 0;
+  right: -50px;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
-    </style>
+section.dark .time .time-colon .am_pm{
+  color: #fff;
+}
+.time .time-colon .time-text{
+  height: 100px;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background: #F0F8FF;
+  border-radius: 6px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+section.dark .time .time-colon .time-text{
+  background: #24292D;
+}
+.time .time-colon .time-text,
+.time .time-colon .colon{
+  font-size: 35px;
+  font-weight: 600;
+}
+section.dark .time .time-text .num,
+section.dark .time .colon{
+  color: #fff;
+}
+.time .time-colon .colon{
+  font-size: 40px;
+  margin: 0 10px;
+}
+.time .time-colon .time-text .text{
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+section.dark  .time .time-colon .text{
+  color: #fff;
+}
+</style>
+
 </head>
 <body>
-    <div class="container">
-        <form action="" id="form">
-            <h1>Registration</h1>
-        <div class="input-control">
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username">
-            <div class="error"></div>
-        </div>
-        <div class="input-control">
-            <label for="email">Email</label>
-            <input type="text" name="email" id="email">
-            <div class="error"></div>
-        </div>
-        <div class="input-control">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password">
-            <div class="error"></div>
-        </div>
-        <div class="input-control">
-            <label for="password2">Password again</label>
-            <input type="password" name="password2" id="password2">
-            <div class="error"></div>
-        </div>
-        <button type="submit">Sign Up</button>
+<!-- partial:index.partial.html -->
+<section>
+
+  <div class="container">
+    <div class="icons">
+      <i class="fas fa-moon"></i>
+      <i class="fas fa-sun"></i>
     </div>
-        </form>
+    <div class="time">
+      <div class="time-colon">
+        <div class="time-text">
+          <span class="num hour_num">08</span>
+          <span class="text">Hours</span>
+        </div>
+        <span class="colon">:</span>
+      </div>
+      <div class="time-colon">
+        <div class="time-text">
+          <span class="num min_num">45</span>
+          <span class="text">Minutes</span>
+        </div>
+        <span class="colon">:</span>
+      </div>
+      <div class="time-colon">
+        <div class="time-text">
+          <span class="num sec_num">06</span>
+          <span class="text">Seconds</span>
+        </div>
+        <span class="am_pm">AM</span>
+      </div>
+    </div>
+  </div>
 
-    <script>
-let form=document.getElementById("form")
-let username=document.getElementById("username")
-let email=document.getElementById("email")
-let password=document.getElementById("password")
-let password2=document.getElementById("password2")
+</section>
+<!-- partial -->
+  <script>
+let section = document.querySelector("section"),
+  icons = document.querySelector(".icons");
 
-form.addEventListener("submit",(e)=>{
-    e.preventDefault()
+icons.onclick = () => {
+  section.classList.toggle("dark");
+};
 
-    validateInputs()
-})   
+// creating a function and calling it in every seconds
+setInterval(() => {
+  let date = new Date(),
+    hour = date.getHours(),
+    min = date.getMinutes(),
+    sec = date.getSeconds();
 
-const setError=(element,message)=>{
-    const inputControl=element.parentElement
-    const error=inputControl.querySelector(".error")
+  let d;
+  d = hour < 12 ? "AM" : "PM"; //if hour is smaller than 12, than its value will be AM else its value will be pm
+  hour = hour > 12 ? hour - 12 : hour; //if hour value is greater than 12 than 12 will subtracted ( by doing this we will get value till 12 not 13,14 or 24 )
+  hour = hour == 0 ? (hour = 12) : hour; // if hour value is  0 than it value will be 12
 
-    error.innerText=message;
-    inputControl.classList.add("error")
-    inputControl.classList.remove("success")
-}
+  // adding 0 to the front of all the value if they will less than 10
+  hour = hour < 10 ? "0" + hour : hour;
+  min = min < 10 ? "0" + min : min;
+  sec = sec < 10 ? "0" + sec : sec;
 
-const setSuccess=(element)=>{
-    const inputControl=element.parentElement
-    const error=inputControl.querySelector(".error")
-
-    error.innerText="";
-    inputControl.classList.add("success")
-    inputControl.classList.remove("error")
-}
-
-const isValidEmail=(email)=>{
-    const re=/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    return re.test(String(email).toLowerCase())
-}
-
-const validateInputs=()=>{
-    const usernameValue=username.value.trim()
-    const emailValue=email.value.trim()
-    const passwordValue=password.value.trim()
-    const passwordValue2=password2.value.trim()
-
-    if(usernameValue===""){
-        setError(username,"Username is required")
-    }else{
-        setSuccess(username)
-    }
-    
-    if (emailValue===""){
-        setError(email,"Email is required")
-    }else if(!isValidEmail(emailValue)){
-        setError(email,"Provide a valid email")
-    }else{
-        setSuccess(email)
-    }
-    
-
-    if(passwordValue===""){
-        setError(password,"Password is required")
-    }
-    else if(passwordValue.length<8){
-        setError(password,"Password should br minimum 8 characters")
-    }else{
-        setSuccess(password)
-    }
-
-    if(passwordValue2===""){
-        setError(password2,"Password is required")
-    }
-    else if(passwordValue2!=passwordValue){
-        setError(password,"Password is not matching")
-    }else{
-        setSuccess(password2)
-    }
-}
+  document.querySelector(".hour_num").innerText = hour;
+  document.querySelector(".min_num").innerText = min;
+  document.querySelector(".sec_num").innerText = sec;
+  document.querySelector(".am_pm").innerText = d;
+}, 1000); // 1000 milliseconds = 1s
 </script>
+
 </body>
 </html>
