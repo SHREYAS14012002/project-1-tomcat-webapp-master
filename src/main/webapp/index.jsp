@@ -2,196 +2,181 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - Digital Clock Dark/Light</title>
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'><link rel="stylesheet" href="./style.css">
+  <title>Analog CLock</title>
+  
 <style>
-/* Google fonts import link */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
-*{
-  margin: 0;
-  padding: 0;
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap");
+*, *:afater, *:before {
   box-sizing: border-box;
-  font-family: 'Orbitron', sans-serif;
-  transition: all 0.4s ease;
 }
-section{
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #F0F8FF;
-  padding: 0 20px;
-}
-section.dark{
-  background: #24292D;
-}
-section .container{
-  display: flex;
-  align-items center;
-  justify-content: center;
-  height: 220px;
-  max-width: 560px;
-  width: 100%;
-  background: #fff;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  border-radius: 12px;
-  position: relative;
-}
-section.dark .container{
-  background: #323840;
-}
-section .container .icons i{
-  position: absolute;
-  right: 17px;
-  top: 17px;
-  height: 30px;
-  width: 30px;
-  background: #24292D;
+
+body, html {
+  background: #000;
+  margin: 0;
+  height: 100vh;
   color: #fff;
-  text-align: center;
-  line-height: 30px;
+  font-family: "Comfortaa", cursive;
+}
+
+.clock {
+  --clock-size: 360px;
+  width: var(--clock-size);
+  height: var(--clock-size);
+  position: fixed;
+  inset: 0;
+  margin: auto;
   border-radius: 50%;
-  font-size: 14px;
-  cursor: pointer;
 }
-section.dark .container .icons i{
-  background: #fff;
-  color: #323840;
-}
-.container .icons i.fa-sun{
-  opacity: 0;
-  pointer-events: none;
-}
-section.dark .container .icons i.fa-sun{
-  opacity: 1;
-  pointer-events: auto;
-  font-size: 16px;
-}
-section .container .time{
-  display: flex;
-  align-items: center;
-}
-.container .time .time-colon{
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-.time .time-colon .am_pm{
+
+.spike {
   position: absolute;
-  top: 0;
-  right: -50px;
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: 1px;
+  width: 8px;
+  height: 1px;
+  background: #fff9;
+  line-height: 20px;
+  transform-origin: 50%;
+  z-index: 5;
+  inset: 0;
+  margin: auto;
+  font-style: normal;
+  transform: rotate(var(--rotate)) translateX(var(--dail-size));
 }
-section.dark .time .time-colon .am_pm{
-  color: #fff;
+.spike:nth-child(5n+1) {
+  box-shadow: -7px 0 #fff9;
 }
-.time .time-colon .time-text{
-  height: 100px;
-  width: 100px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  background: #F0F8FF;
-  border-radius: 6px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+.spike:nth-child(5n+1):after {
+  content: attr(data-i);
+  position: absolute;
+  right: 22px;
+  top: -10px;
+  transition: 1s linear;
+  transform: rotate(calc( var(--dRotate) - var(--rotate)));
 }
-section.dark .time .time-colon .time-text{
-  background: #24292D;
+
+.seconds {
+  --dRotate: 0deg;
+  --dail-size: calc((var(--clock-size)/ 2) - 8px);
+  font-weight: 800;
+  font-size: 18px;
+  transform: rotate(calc( -1 * var(--dRotate)));
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  transition: 1s linear;
 }
-.time .time-colon .time-text,
-.time .time-colon .colon{
-  font-size: 35px;
-  font-weight: 600;
+
+.minutes {
+  --dail-size: calc((var(--clock-size)/ 2) - 65px);
+  font-size: 16px;
+  transform: rotate(calc( -1 * var(--dRotate)));
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  transition: 1s linear;
 }
-section.dark .time .time-text .num,
-section.dark .time .colon{
-  color: #fff;
+
+.stop-anim {
+  transition: 0s linear;
 }
-.time .time-colon .colon{
-  font-size: 40px;
-  margin: 0 10px;
+.stop-anim .spike:after {
+  transition: 0s linear !important;
 }
-.time .time-colon .time-text .text{
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 2px;
+
+.hour {
+  font-size: 70px;
+  font-weight: 900;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
-section.dark  .time .time-colon .text{
-  color: #fff;
+
+.minute {
+  font-size: 36px;
+  font-weight: 900;
+  position: absolute;
+  background: #000;
+  z-index: 10;
+  right: calc(var(--clock-size)/ 4.5);
+  top: 50%;
+  transform: translateY(-50%);
+}
+.minute:after {
+  content: "";
+  position: absolute;
+  border: 2px solid #fff;
+  border-right: none;
+  height: 50px;
+  left: -10px;
+  top: 50%;
+  border-radius: 40px 0 0 40px;
+  width: calc(var(--clock-size)/ 2.75);
+  transform: translatey(-50%);
 }
 </style>
-
 </head>
 <body>
-<!-- partial:index.partial.html -->
-<section>
 
-  <div class="container">
-    <div class="icons">
-      <i class="fas fa-moon"></i>
-      <i class="fas fa-sun"></i>
-    </div>
-    <div class="time">
-      <div class="time-colon">
-        <div class="time-text">
-          <span class="num hour_num">08</span>
-          <span class="text">Hours</span>
-        </div>
-        <span class="colon">:</span>
-      </div>
-      <div class="time-colon">
-        <div class="time-text">
-          <span class="num min_num">45</span>
-          <span class="text">Minutes</span>
-        </div>
-        <span class="colon">:</span>
-      </div>
-      <div class="time-colon">
-        <div class="time-text">
-          <span class="num sec_num">06</span>
-          <span class="text">Seconds</span>
-        </div>
-        <span class="am_pm">AM</span>
-      </div>
-    </div>
-  </div>
+<second class="clock">
+  <div class="seconds"></div>
+  <div class="minutes"></div>
+  <div class="minute">44</div>
+  <div class="hour"></div>
+</second>
 
-</section>
-<!-- partial -->
   <script>
-let section = document.querySelector("section"),
-  icons = document.querySelector(".icons");
+const seconds = document.querySelector('.seconds');
+const minutes = document.querySelector('.minutes');
+const minute = document.querySelector('.minute');
+const hour = document.querySelector('.hour');
 
-icons.onclick = () => {
-  section.classList.toggle("dark");
-};
+// Create spikes
+for(let s = 0; s < 60 ; s++){
+  let mSpikeEl = document.createElement('i');
+  let sSpikeEl = document.createElement('i');
+  mSpikeEl.className = 'spike'
+  sSpikeEl.className = 'spike'
+  mSpikeEl.style = `--rotate:${6 * s}deg`;
+  sSpikeEl.style = `--rotate:${6 * s}deg`;
+  mSpikeEl.setAttribute('data-i', s);
+  sSpikeEl.setAttribute('data-i', s);
 
-// creating a function and calling it in every seconds
-setInterval(() => {
-  let date = new Date(),
-    hour = date.getHours(),
-    min = date.getMinutes(),
-    sec = date.getSeconds();
+  seconds.append(sSpikeEl);
+  minutes.append(mSpikeEl);
+}
 
-  let d;
-  d = hour < 12 ? "AM" : "PM"; //if hour is smaller than 12, than its value will be AM else its value will be pm
-  hour = hour > 12 ? hour - 12 : hour; //if hour value is greater than 12 than 12 will subtracted ( by doing this we will get value till 12 not 13,14 or 24 )
-  hour = hour == 0 ? (hour = 12) : hour; // if hour value is  0 than it value will be 12
+function getTime() {
+		let date = new Date(),
+    s  = date.getSeconds() ,
+    m  = date.getMinutes();
+  
+  	hour.textContent = date.getHours();
+  	minute.textContent = m;
+  
 
-  // adding 0 to the front of all the value if they will less than 10
-  hour = hour < 10 ? "0" + hour : hour;
-  min = min < 10 ? "0" + min : min;
-  sec = sec < 10 ? "0" + sec : sec;
+  	minutes.style = `--dRotate:${6 * m}deg`;
 
-  document.querySelector(".hour_num").innerText = hour;
-  document.querySelector(".min_num").innerText = min;
-  document.querySelector(".sec_num").innerText = sec;
-  document.querySelector(".am_pm").innerText = d;
-}, 1000); // 1000 milliseconds = 1s
+    if(s == 0){
+			seconds.classList.add('stop-anim')
+    } else{
+      seconds.classList.remove('stop-anim')
+    }
+    if(m == 0){
+			minutes.classList.add('stop-anim')
+    } else{
+      minutes.classList.remove('stop-anim')
+    }
+  	
+  		seconds.style = `--dRotate:${6 * s}deg`;
+}
+
+
+
+
+
+
+setInterval(getTime, 1000);
+getTime();
 </script>
 
 </body>
